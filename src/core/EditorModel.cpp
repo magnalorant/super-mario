@@ -13,11 +13,15 @@ namespace mario {
 
 namespace {
 
-constexpr std::size_t index(int value) noexcept { return static_cast<std::size_t>(value); }
+constexpr std::size_t index(int value) noexcept {
+    return static_cast<std::size_t>(value);
+}
 
 }  // namespace
 
-EditorModel::EditorModel() { reset(); }
+EditorModel::EditorModel() {
+    reset();
+}
 
 void EditorModel::reset() {
     for (auto& row : grid_) {
@@ -90,7 +94,9 @@ bool EditorModel::erase(int screenX, int screenY) noexcept {
     return setAtScreen(screenX, screenY, toChar(TileCode::Empty));
 }
 
-void EditorModel::scroll(int dx) noexcept { cameraX_ = std::clamp(cameraX_ + dx, 0, Camera::maxOffset()); }
+void EditorModel::scroll(int dx) noexcept {
+    cameraX_ = std::clamp(cameraX_ + dx, 0, Camera::maxOffset());
+}
 
 bool EditorModel::setAtScreen(int screenX, int screenY, char symbol) noexcept {
     if (screenX < 0 || screenY < 0) {

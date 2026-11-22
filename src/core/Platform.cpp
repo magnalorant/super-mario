@@ -32,7 +32,9 @@ void VerticalMotion::advance(Platform& platform) const {
     }
 }
 
-int VerticalMotion::carryOffsetX(const Platform& /*platform*/) const { return 0; }
+int VerticalMotion::carryOffsetX(const Platform& /*platform*/) const {
+    return 0;
+}
 
 namespace {
 

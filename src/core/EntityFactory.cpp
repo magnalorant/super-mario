@@ -6,7 +6,9 @@ namespace mario {
 
 namespace {
 
-constexpr int toPixels(int tile) noexcept { return tile * config::kTileSize; }
+constexpr int toPixels(int tile) noexcept {
+    return tile * config::kTileSize;
+}
 
 template <typename T>
 bool belowLimit(const std::vector<T>& items, int limit) {
@@ -64,9 +66,13 @@ EntityFactory EntityFactory::withDefaultCreators() {
     return factory;
 }
 
-void EntityFactory::registerCreator(TileCode code, Creator creator) { creators_[code] = std::move(creator); }
+void EntityFactory::registerCreator(TileCode code, Creator creator) {
+    creators_[code] = std::move(creator);
+}
 
-bool EntityFactory::canCreate(TileCode code) const { return creators_.find(code) != creators_.end(); }
+bool EntityFactory::canCreate(TileCode code) const {
+    return creators_.find(code) != creators_.end();
+}
 
 bool EntityFactory::create(char symbol, LevelData& level, int tileX, int tileY) const {
     const auto code = tileCodeFromChar(symbol);

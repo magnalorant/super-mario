@@ -25,8 +25,8 @@ public:
     void drawText(std::string_view text, int /*x*/, int /*y*/, Color /*color*/, int /*pointSize*/) override {
         texts.emplace_back(text);
     }
-    void drawTextCentered(std::string_view text, int /*y*/, Color /*color*/, Color /*shadow*/, int /*pointSize*/,
-                          int /*shadowOffset*/) override {
+    void drawTextCentered(std::string_view text, int /*y*/, Color /*color*/, Color /*shadow*/,
+                          int /*pointSize*/, int /*shadowOffset*/) override {
         texts.emplace_back(text);
     }
 

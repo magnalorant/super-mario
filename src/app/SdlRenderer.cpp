@@ -11,9 +11,13 @@ namespace mario::app {
 
 namespace {
 
-SDL_Rect toSdl(const Rect& r) noexcept { return SDL_Rect{r.x, r.y, r.w, r.h}; }
+SDL_Rect toSdl(const Rect& r) noexcept {
+    return SDL_Rect{r.x, r.y, r.w, r.h};
+}
 
-SDL_Color toSdl(Color c) noexcept { return SDL_Color{c.r, c.g, c.b, c.a}; }
+SDL_Color toSdl(Color c) noexcept {
+    return SDL_Color{c.r, c.g, c.b, c.a};
+}
 
 const char* spriteFile(Sprite sprite) noexcept {
     switch (sprite) {
@@ -40,7 +44,8 @@ const char* spriteFile(Sprite sprite) noexcept {
 }
 
 RendererPtr createRenderer(SDL_Window& window) {
-    RendererPtr renderer{SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)};
+    RendererPtr renderer{
+        SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)};
     if (!renderer) {
         renderer.reset(SDL_CreateRenderer(&window, -1, SDL_RENDERER_SOFTWARE));
     }
@@ -103,7 +108,9 @@ void SdlRenderer::drawTextCentered(std::string_view text, int y, Color color, Co
     blit(front, x, y);
 }
 
-void SdlRenderer::present() { SDL_RenderPresent(renderer_.get()); }
+void SdlRenderer::present() {
+    SDL_RenderPresent(renderer_.get());
+}
 
 TTF_Font* SdlRenderer::font(int pointSize) {
     auto it = fonts_.find(pointSize);
@@ -143,6 +150,8 @@ void SdlRenderer::blit(TextImage& image, int x, int y) {
     SDL_RenderCopy(renderer_.get(), image.texture.get(), nullptr, &rect);
 }
 
-void SdlRenderer::setColor(Color color) { SDL_SetRenderDrawColor(renderer_.get(), color.r, color.g, color.b, color.a); }
+void SdlRenderer::setColor(Color color) {
+    SDL_SetRenderDrawColor(renderer_.get(), color.r, color.g, color.b, color.a);
+}
 
 }  // namespace mario::app

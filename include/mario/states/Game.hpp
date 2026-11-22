@@ -25,8 +25,8 @@ namespace mario {
  * @brief A playable level shown in the level selection.
  */
 struct LevelEntry {
-    std::string name;             ///< Display name, the file name.
-    std::filesystem::path path;   ///< Location of the level file.
+    std::string name;            ///< Display name, the file name.
+    std::filesystem::path path;  ///< Location of the level file.
 };
 
 /**
@@ -44,7 +44,7 @@ public:
      * @brief Creates a game that reads levels from assetDir/levels.
      * @param assetDir Directory containing the levels folder.
      */
-    explicit Game(std::filesystem::path assetDir);
+    explicit Game(const std::filesystem::path& assetDir);
 
     ~Game();
     Game(const Game&) = delete;

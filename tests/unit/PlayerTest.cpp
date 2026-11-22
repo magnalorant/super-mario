@@ -14,7 +14,8 @@ TEST(PlayerTest, ResetForNewLevelRestoresInitialState) {
     player.resetForNewLevel();
 
     EXPECT_EQ(player.x, config::kPlayerInitialX);
-    EXPECT_EQ(player.y, (config::kMapHeight - config::kPlayerInitialYOffsetTiles) * config::kTileSize - player.h);
+    EXPECT_EQ(player.y,
+              (config::kMapHeight - config::kPlayerInitialYOffsetTiles) * config::kTileSize - player.h);
     EXPECT_EQ(player.lives, config::kInitialLives);
     EXPECT_EQ(player.score, 0);
     EXPECT_FALSE(player.hasFlower);

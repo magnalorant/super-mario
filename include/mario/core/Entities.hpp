@@ -20,7 +20,9 @@ enum class Direction : int {
 };
 
 /// @return +1 for Right and -1 for Left.
-[[nodiscard]] constexpr int sign(Direction d) noexcept { return static_cast<int>(d); }
+[[nodiscard]] constexpr int sign(Direction d) noexcept {
+    return static_cast<int>(d);
+}
 
 /// @return The opposite direction.
 [[nodiscard]] constexpr Direction reversed(Direction d) noexcept {
@@ -31,18 +33,18 @@ enum class Direction : int {
  * @brief State of the player character.
  */
 struct Player {
-    int x{0};                     ///< Left edge in world pixels.
-    int y{0};                     ///< Top edge in world pixels.
-    int w{config::kTileSize};     ///< Width in pixels.
-    int h{config::kTileSize};     ///< Height in pixels.
-    float velocityY{0.0F};        ///< Vertical velocity, positive is downwards.
-    int speed{config::kPlayerSpeed};  ///< Horizontal speed in pixels per frame.
-    int lives{config::kInitialLives};  ///< Remaining lives.
-    int score{0};                 ///< Collected points.
-    bool hasMushroom{false};      ///< Can break blocks from below.
-    bool hasFlower{false};        ///< Can shoot fireballs.
-    bool onGround{false};         ///< Standing on a solid tile.
-    Direction facing{Direction::Right};  ///< Direction used for fireballs.
+    int x{0};                                       ///< Left edge in world pixels.
+    int y{0};                                       ///< Top edge in world pixels.
+    int w{config::kTileSize};                       ///< Width in pixels.
+    int h{config::kTileSize};                       ///< Height in pixels.
+    float velocityY{0.0F};                          ///< Vertical velocity, positive is downwards.
+    int speed{config::kPlayerSpeed};                ///< Horizontal speed in pixels per frame.
+    int lives{config::kInitialLives};               ///< Remaining lives.
+    int score{0};                                   ///< Collected points.
+    bool hasMushroom{false};                        ///< Can break blocks from below.
+    bool hasFlower{false};                          ///< Can shoot fireballs.
+    bool onGround{false};                           ///< Standing on a solid tile.
+    Direction facing{Direction::Right};             ///< Direction used for fireballs.
     std::optional<std::size_t> supportingPlatform;  ///< Index of the platform carrying the player.
 
     /// @return Collision rectangle in world coordinates.
@@ -62,12 +64,12 @@ struct Player {
  * @brief Walking enemy that turns around at walls and ledges.
  */
 struct Enemy {
-    int x{0};                           ///< Left edge in world pixels.
-    int y{0};                           ///< Top edge in world pixels.
-    int w{config::kTileSize};           ///< Width in pixels.
-    int h{config::kTileSize};           ///< Height in pixels.
+    int x{0};                               ///< Left edge in world pixels.
+    int y{0};                               ///< Top edge in world pixels.
+    int w{config::kTileSize};               ///< Width in pixels.
+    int h{config::kTileSize};               ///< Height in pixels.
     Direction direction{Direction::Right};  ///< Current walking direction.
-    bool alive{true};                   ///< False after being defeated.
+    bool alive{true};                       ///< False after being defeated.
 
     /// @return Collision rectangle in world coordinates.
     [[nodiscard]] Rect bounds() const noexcept { return {x, y, w, h}; }
@@ -83,10 +85,10 @@ enum class PowerupKind {
  * @brief Collectable power-up occupying one tile.
  */
 struct Powerup {
-    int x{0};                              ///< Left edge in world pixels.
-    int y{0};                              ///< Top edge in world pixels.
+    int x{0};                                 ///< Left edge in world pixels.
+    int y{0};                                 ///< Top edge in world pixels.
     PowerupKind kind{PowerupKind::Mushroom};  ///< Effect applied on pickup.
-    bool active{true};                     ///< False after being collected.
+    bool active{true};                        ///< False after being collected.
 
     /// @return Collision rectangle in world coordinates.
     [[nodiscard]] Rect bounds() const noexcept { return {x, y, config::kTileSize, config::kTileSize}; }
@@ -96,10 +98,10 @@ struct Powerup {
  * @brief Projectile shot by a player holding a flower.
  */
 struct Fireball {
-    int x{0};                           ///< Left edge in world pixels.
-    int y{0};                           ///< Top edge in world pixels.
+    int x{0};                               ///< Left edge in world pixels.
+    int y{0};                               ///< Top edge in world pixels.
     Direction direction{Direction::Right};  ///< Flight direction.
-    bool active{false};                 ///< True while in flight.
+    bool active{false};                     ///< True while in flight.
 
     /// @return Collision rectangle in world coordinates.
     [[nodiscard]] Rect bounds() const noexcept {

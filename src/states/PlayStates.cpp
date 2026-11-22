@@ -50,7 +50,9 @@ void PlayingState::update(Game& game, const InputState& held, int elapsedMs) {
     }
 }
 
-void PlayingState::render(const Game& game, Renderer& renderer) const { renderWorld(game.world(), renderer); }
+void PlayingState::render(const Game& game, Renderer& renderer) const {
+    renderWorld(game.world(), renderer);
+}
 
 void PausedState::handleEvent(Game& game, const InputEvent& event) {
     if (isAnyKey(event, Key::P, Key::Escape)) {
@@ -100,7 +102,8 @@ void LevelCompleteState::update(Game& game, const InputState& /*held*/, int elap
 void LevelCompleteState::render(const Game& game, Renderer& renderer) const {
     renderWorld(game.world(), renderer);
     renderer.fillRect({kWidth / 2 - 200, kHeight / 2 - 60, 400, 120}, Color{0, 0, 0, 200});
-    renderer.drawTextCentered("Congratulations!", kHeight / 2 - 28, palette::kYellow, palette::kShadow, 48, 2);
+    renderer.drawTextCentered("Congratulations!", kHeight / 2 - 28, palette::kYellow, palette::kShadow, 48,
+                              2);
 }
 
 }  // namespace mario

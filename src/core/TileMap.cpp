@@ -32,9 +32,13 @@ bool TileMap::takeCoin(int tileX, int tileY) noexcept {
     return true;
 }
 
-int TileMap::coinCount() const noexcept { return countSet(coins_); }
+int TileMap::coinCount() const noexcept {
+    return countSet(coins_);
+}
 
-int TileMap::solidCount() const noexcept { return countSet(solid_); }
+int TileMap::solidCount() const noexcept {
+    return countSet(solid_);
+}
 
 int TileMap::countSet(const Grid& grid) noexcept {
     int total = 0;

@@ -8,11 +8,15 @@ namespace {
 
 constexpr int kTile = config::kTileSize;
 
-constexpr int tileOf(int pixel) noexcept { return pixel / kTile; }
+constexpr int tileOf(int pixel) noexcept {
+    return pixel / kTile;
+}
 
 }  // namespace
 
-World::World(EventDispatcher& events) : events_(events) { player_.resetForNewLevel(); }
+World::World(EventDispatcher& events) : events_(events) {
+    player_.resetForNewLevel();
+}
 
 void World::load(LevelData level) {
     tiles_ = level.tiles;
@@ -208,10 +212,11 @@ void World::movePlatforms() {
 }
 
 void World::rideSupportingPlatform(const PlayerInput& input) {
-    if (!player_.onPlatform()) {
+    const std::optional<std::size_t> index = player_.supportingPlatform;
+    if (!index) {
         return;
     }
-    const Platform& platform = platforms_[*player_.supportingPlatform];
+    const Platform& platform = platforms_[*index];
     const int feet = player_.y + player_.h;
     const bool overlapsX = player_.x + player_.w > platform.x && player_.x < platform.x + platform.w;
     const bool onTop = feet >= platform.y && feet < platform.y + kTile / 2;
@@ -259,13 +264,15 @@ void World::moveEnemies() noexcept {
         }
         enemy.x += sign(enemy.direction) * config::kEnemySpeed;
 
-        const int aheadX = enemy.direction == Direction::Right ? tileOf(enemy.x + enemy.w) : tileOf(enemy.x - 1);
+        const int aheadX =
+            enemy.direction == Direction::Right ? tileOf(enemy.x + enemy.w) : tileOf(enemy.x - 1);
         const int feetY = tileOf(enemy.y + enemy.h - 1);
         const int belowY = feetY + 1;
 
         const bool outsideMap = aheadX < 0 || aheadX >= TileMap::kWidth;
         const bool wallAhead = tiles_.isSolid(aheadX, feetY);
-        const bool ledgeAhead = TileMap::inBounds(aheadX, belowY) && !tiles_.isSolid(aheadX, belowY) && !wallAhead;
+        const bool ledgeAhead =
+            TileMap::inBounds(aheadX, belowY) && !tiles_.isSolid(aheadX, belowY) && !wallAhead;
         if (outsideMap || wallAhead || ledgeAhead) {
             enemy.direction = reversed(enemy.direction);
         }
@@ -279,8 +286,8 @@ StepOutcome World::resolveEnemyContacts() {
             continue;
         }
         const int penetration = (player_.y + player_.h) - enemy.y;
-        const bool stomp = player_.velocityY > 0.0F && penetration <= player_.h / 2 + config::kStompTolerance &&
-                           !player_.onPlatform();
+        const bool stomp = player_.velocityY > 0.0F &&
+                           penetration <= player_.h / 2 + config::kStompTolerance && !player_.onPlatform();
         if (!stomp) {
             return loseLife();
         }
@@ -322,7 +329,9 @@ StepOutcome World::checkFallOutOfWorld() {
     return StepOutcome::Running;
 }
 
-bool World::reachedFlag() const noexcept { return flag_ && player_.bounds().intersects(flag_->bounds()); }
+bool World::reachedFlag() const noexcept {
+    return flag_ && player_.bounds().intersects(flag_->bounds());
+}
 
 StepOutcome World::loseLife() {
     --player_.lives;
@@ -336,6 +345,8 @@ StepOutcome World::loseLife() {
     return StepOutcome::LifeLost;
 }
 
-void World::publish(GameEventType type, int value) const { events_.publish(GameEvent{type, value}); }
+void World::publish(GameEventType type, int value) const {
+    events_.publish(GameEvent{type, value});
+}
 
 }  // namespace mario

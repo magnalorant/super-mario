@@ -30,7 +30,8 @@ void renderTiles(const World& world, Renderer& renderer, int cameraX) {
     for (int ty = 0; ty < TileMap::kHeight; ++ty) {
         for (int tx = 0; tx < TileMap::kWidth; ++tx) {
             if (tiles.hasCoin(tx, ty)) {
-                drawIfVisible(renderer, Sprite::Coin, toScreen({tx * kTile, ty * kTile, kTile, kTile}, cameraX));
+                drawIfVisible(renderer, Sprite::Coin,
+                              toScreen({tx * kTile, ty * kTile, kTile, kTile}, cameraX));
             }
         }
     }

@@ -9,8 +9,8 @@ namespace mario {
 
 void GameState::update(Game& /*game*/, const InputState& /*held*/, int /*elapsedMs*/) {}
 
-Game::Game(std::filesystem::path assetDir)
-    : levelDir_(std::move(assetDir) / "levels"), world_(events_), state_(std::make_unique<MenuState>()) {
+Game::Game(const std::filesystem::path& assetDir)
+    : levelDir_(assetDir / "levels"), world_(events_), state_(std::make_unique<MenuState>()) {
     for (const char* file : {"map1.txt", "map2.txt", "map3.txt", kCustomLevelName}) {
         levels_.push_back(LevelEntry{file, levelDir_ / file});
     }
@@ -28,9 +28,13 @@ void Game::update(const InputState& held, int elapsedMs) {
     applyPendingState();
 }
 
-void Game::render(Renderer& renderer) const { state_->render(*this, renderer); }
+void Game::render(Renderer& renderer) const {
+    state_->render(*this, renderer);
+}
 
-void Game::changeState(std::unique_ptr<GameState> next) { pending_ = std::move(next); }
+void Game::changeState(std::unique_ptr<GameState> next) {
+    pending_ = std::move(next);
+}
 
 void Game::applyPendingState() {
     if (pending_) {
@@ -60,7 +64,9 @@ bool Game::startLevel(std::size_t index) {
     return true;
 }
 
-void Game::openEditor() { editor_.loadFile(customLevelPath()); }
+void Game::openEditor() {
+    editor_.loadFile(customLevelPath());
+}
 
 bool Game::saveEditorLevel() const {
     std::error_code ec;
@@ -68,6 +74,8 @@ bool Game::saveEditorLevel() const {
     return editor_.saveFile(customLevelPath());
 }
 
-std::filesystem::path Game::customLevelPath() const { return levelDir_ / kCustomLevelName; }
+std::filesystem::path Game::customLevelPath() const {
+    return levelDir_ / kCustomLevelName;
+}
 
 }  // namespace mario

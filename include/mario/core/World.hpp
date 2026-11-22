@@ -109,7 +109,7 @@ private:
     std::vector<Enemy> enemies_;
     std::vector<Powerup> powerups_;
     std::vector<Platform> platforms_;
-    FireballPool fireballs_{};
+    FireballPool fireballs_;
     std::optional<Flag> flag_;
     Camera camera_;
 };

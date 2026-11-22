@@ -29,7 +29,9 @@ enum class TileCode : char {
 };
 
 /// @return The character stored in level files for the given code.
-[[nodiscard]] constexpr char toChar(TileCode code) noexcept { return static_cast<char>(code); }
+[[nodiscard]] constexpr char toChar(TileCode code) noexcept {
+    return static_cast<char>(code);
+}
 
 /**
  * @brief Converts a level file character into a tile code.

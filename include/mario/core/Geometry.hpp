@@ -59,6 +59,8 @@ struct Rect {
 }
 
 /// @return True if the rectangles differ in position or size.
-[[nodiscard]] constexpr bool operator!=(const Rect& a, const Rect& b) noexcept { return !(a == b); }
+[[nodiscard]] constexpr bool operator!=(const Rect& a, const Rect& b) noexcept {
+    return !(a == b);
+}
 
 }  // namespace mario

@@ -18,11 +18,11 @@ namespace mario {
  * @brief Initial content of a level.
  */
 struct LevelData {
-    TileMap tiles;                   ///< Solid blocks and coins.
-    std::vector<Enemy> enemies;      ///< Enemy spawn states.
-    std::vector<Powerup> powerups;   ///< Power-ups waiting to be collected.
+    TileMap tiles;                    ///< Solid blocks and coins.
+    std::vector<Enemy> enemies;       ///< Enemy spawn states.
+    std::vector<Powerup> powerups;    ///< Power-ups waiting to be collected.
     std::vector<Platform> platforms;  ///< Moving platforms.
-    std::optional<Flag> flag;        ///< Goal of the level, if any.
+    std::optional<Flag> flag;         ///< Goal of the level, if any.
 };
 
 }  // namespace mario
