@@ -3,6 +3,10 @@ add_library(mario::core ALIAS mario_core)
 
 target_sources(mario_core
     PRIVATE
+        core/Entities.cpp
+        core/EntityFactory.cpp
+        core/LevelLoader.cpp
+        core/Platform.cpp
         core/TileMap.cpp
 )
 
