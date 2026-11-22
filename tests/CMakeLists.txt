@@ -15,35 +15,35 @@ endif()
 
 include(GoogleTest)
 
-add_executable(mario_tests)
+function(mario_add_test_suite name label)
+    add_executable(${name} ${ARGN})
+    target_link_libraries(${name} PRIVATE mario::core GTest::gtest_main)
+    target_include_directories(${name} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_compile_definitions(${name} PRIVATE MARIO_ASSET_DIR="${PROJECT_SOURCE_DIR}/assets")
+    if(NOT MSVC)
+        target_compile_options(${name} PRIVATE -Wall -Wextra -Wpedantic -Wshadow)
+    endif()
+    gtest_discover_tests(${name}
+        DISCOVERY_MODE PRE_TEST
+        PROPERTIES LABELS ${label}
+    )
+endfunction()
 
-target_sources(mario_tests
-    PRIVATE
-        unit/CameraTest.cpp
-        unit/EditorModelTest.cpp
-        unit/EventDispatcherTest.cpp
-        unit/GeometryTest.cpp
-        unit/LevelLoaderTest.cpp
-        unit/PlatformTest.cpp
-        unit/PlayerTest.cpp
-        unit/TileMapTest.cpp
-        unit/WorldInteractionTest.cpp
-        unit/WorldPhysicsTest.cpp
+mario_add_test_suite(mario_unit_tests unit
+    unit/CameraTest.cpp
+    unit/EditorModelTest.cpp
+    unit/EventDispatcherTest.cpp
+    unit/GameStateTest.cpp
+    unit/GeometryTest.cpp
+    unit/LevelLoaderTest.cpp
+    unit/PlatformTest.cpp
+    unit/PlayerTest.cpp
+    unit/TileMapTest.cpp
+    unit/WorldInteractionTest.cpp
+    unit/WorldPhysicsTest.cpp
+    unit/WorldViewTest.cpp
 )
 
-target_include_directories(mario_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-
-target_link_libraries(mario_tests
-    PRIVATE
-        mario::core
-        GTest::gtest_main
-)
-
-if(NOT MSVC)
-    target_compile_options(mario_tests PRIVATE -Wall -Wextra -Wpedantic -Wshadow)
-endif()
-
-gtest_discover_tests(mario_tests
-    DISCOVERY_MODE PRE_TEST
-    PROPERTIES LABELS unit
+mario_add_test_suite(mario_integration_tests integration
+    integration/ShippedLevelsTest.cpp
 )
