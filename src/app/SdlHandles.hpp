@@ -24,10 +24,15 @@ public:
 
 /// @brief Releases SDL objects with the matching destroy function.
 struct SdlDeleter {
+    /// @brief Destroys a window.
     void operator()(SDL_Window* window) const noexcept { SDL_DestroyWindow(window); }
+    /// @brief Destroys a renderer.
     void operator()(SDL_Renderer* renderer) const noexcept { SDL_DestroyRenderer(renderer); }
+    /// @brief Destroys a texture.
     void operator()(SDL_Texture* texture) const noexcept { SDL_DestroyTexture(texture); }
+    /// @brief Frees a surface.
     void operator()(SDL_Surface* surface) const noexcept { SDL_FreeSurface(surface); }
+    /// @brief Closes a font.
     void operator()(TTF_Font* font) const noexcept { TTF_CloseFont(font); }
 };
 

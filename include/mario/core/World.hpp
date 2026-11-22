@@ -69,19 +69,26 @@ public:
      */
     bool shootFireball();
 
-    /// @name Accessors
-    /// @{
+    /// @return The player.
     [[nodiscard]] const Player& player() const noexcept { return player_; }
+    /// @return The player, mutable for tests and cheats.
     [[nodiscard]] Player& player() noexcept { return player_; }
+    /// @return Solid blocks and remaining coins.
     [[nodiscard]] const TileMap& tiles() const noexcept { return tiles_; }
+    /// @return All enemies, including defeated ones.
     [[nodiscard]] const std::vector<Enemy>& enemies() const noexcept { return enemies_; }
+    /// @return All enemies, mutable for tests.
     [[nodiscard]] std::vector<Enemy>& enemies() noexcept { return enemies_; }
+    /// @return All power-ups, including collected ones.
     [[nodiscard]] const std::vector<Powerup>& powerups() const noexcept { return powerups_; }
+    /// @return All moving platforms.
     [[nodiscard]] const std::vector<Platform>& platforms() const noexcept { return platforms_; }
+    /// @return The fireball pool, including inactive slots.
     [[nodiscard]] const FireballPool& fireballs() const noexcept { return fireballs_; }
+    /// @return The goal flag, if the level has one.
     [[nodiscard]] const std::optional<Flag>& flag() const noexcept { return flag_; }
+    /// @return The camera following the player.
     [[nodiscard]] const Camera& camera() const noexcept { return camera_; }
-    /// @}
 
 private:
     void applyHorizontalMovement(const PlayerInput& input) noexcept;

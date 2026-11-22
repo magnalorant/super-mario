@@ -102,14 +102,16 @@ public:
     /// @return Location of the level written by the editor.
     [[nodiscard]] std::filesystem::path customLevelPath() const;
 
-    /// @name Owned subsystems
-    /// @{
+    /// @return The gameplay simulation.
     [[nodiscard]] World& world() noexcept { return world_; }
+    /// @return The gameplay simulation.
     [[nodiscard]] const World& world() const noexcept { return world_; }
+    /// @return The level editor data.
     [[nodiscard]] EditorModel& editor() noexcept { return editor_; }
+    /// @return The level editor data.
     [[nodiscard]] const EditorModel& editor() const noexcept { return editor_; }
+    /// @return Dispatcher publishing gameplay events; subscribe here to observe the game.
     [[nodiscard]] EventDispatcher& events() noexcept { return events_; }
-    /// @}
 
 private:
     void applyPendingState();
