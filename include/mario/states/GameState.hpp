@@ -19,7 +19,7 @@ class Game;
  *
  * Every screen (menu, level selection, gameplay, pause, game over, level complete, editor)
  * handles input, updates and draws itself. Game forwards calls to the active state, which
- * replaces the large switch statements of the original main loop. A state requests a
+ * avoids large switch statements in the main loop. A state requests a
  * transition with Game::changeState(); the switch happens after the current call returns.
  */
 class GameState {

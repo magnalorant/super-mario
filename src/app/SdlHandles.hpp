@@ -45,7 +45,7 @@ using FontPtr = std::unique_ptr<TTF_Font, SdlDeleter>;          ///< Owning font
 /**
  * @brief Initialises SDL, SDL_image and SDL_ttf for the lifetime of the object.
  *
- * Replaces the hand written cleanup sequences of the C version: every subsystem that was
+ * Every subsystem that was
  * started is shut down in reverse order, also when construction fails half way.
  */
 class SdlSystem {

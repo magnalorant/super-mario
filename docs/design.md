@@ -2,13 +2,13 @@
 
 ## Goal
 
-Port an existing single-file C platformer (`main.c`, SDL2) to C++17 without changing how the
-game plays, and use the port to apply production practices: a modular structure, an
-automated build, tests, static and dynamic analysis, documentation and version control.
+Build a side-scrolling platformer with a level editor in C++17 on top of SDL2, and use it to
+apply production practices: a modular structure, an automated build, tests, static and
+dynamic analysis, documentation and version control.
 
 ## Requirements
 
-Functional requirements carried over from the C version:
+Functional requirements:
 
 | ID | Requirement | Verified by |
 | --- | --- | --- |
@@ -58,29 +58,27 @@ so the unit tests link against `mario_core` alone and draw into a recording `Fak
 
 | Pattern | Where | Problem it solves | Trade-off |
 | --- | --- | --- | --- |
-| State | `Game`, `GameState`, `States.hpp` | `main.c` had a `switch (game_state)` for input and another for rendering; every new screen touched both. Each screen is now one class with its own data (menu selection, freeze timer). | More classes; transitions are deferred to avoid destroying the running state. |
-| Strategy | `PlatformMotion`, `HorizontalMotion`, `VerticalMotion` | Platforms differed only by a type code checked in the update loop. The motion rule is now injected. | Virtual call per platform per frame, negligible for at most 16 platforms. |
-| Factory | `EntityFactory` | The loader had an if/else chain per character. Creators are registered per tile code, so the parser does not change when a tile type is added; tests can swap creators. | `std::function` indirection during loading only. |
+| State | `Game`, `GameState`, `States.hpp` | A single main loop with a `switch` over the screen for input and another for rendering would make every new screen touch both. Each screen is one class with its own data (menu selection, freeze timer). | More classes; transitions are deferred to avoid destroying the running state. |
+| Strategy | `PlatformMotion`, `HorizontalMotion`, `VerticalMotion` | Platforms differ only in how they move. Instead of a type code checked in the update loop, the motion rule is injected. | Virtual call per platform per frame, negligible for at most 16 platforms. |
+| Factory | `EntityFactory` | A loader with an if/else chain per character grows with every tile type. Creators are registered per tile code, so the parser does not change when a tile type is added; tests can swap creators. | `std::function` indirection during loading only. |
 | Observer | `EventDispatcher`, `GameEvent` | Gameplay code should not know about logging (and later sound or statistics). `World` publishes events, the frontend subscribes a logger in verbose mode. | Listeners must not outlive captured objects; ids allow unsubscribing. |
 | Adapter | `SdlRenderer` implements `Renderer` | The core needs to draw without depending on SDL. | One extra interface. |
-| RAII | `SdlSystem`, `WindowPtr`, `TexturePtr`, `FontPtr` | The C code had several hand written cleanup chains and opened fonts every frame. | None worth noting. |
+| RAII | `SdlSystem`, `WindowPtr`, `TexturePtr`, `FontPtr` | SDL objects must be released on every exit path, including failed initialisation; hand written cleanup chains are easy to get wrong. | None worth noting. |
 | Dependency injection | `World(EventDispatcher&)`, `Game::render(Renderer&)`, `LevelLoader(EntityFactory)` | Collaborators are passed in, which is what makes the fakes in the tests possible. | Callers must keep injected objects alive (documented). |
 
 Patterns that were considered and left out: a Command layer for input (the key bindings are
 simple and fixed) and an entity-component system (the number of entity types is small and stable).
 
-## Notable changes compared to the C version
+## Key implementation decisions
 
-- `exit(1)` on a missing level file became `LevelLoadError`, shown on the level select screen;
-  `map3.txt` was listed but did not exist, the unused `map.txt` now fills that slot
-- blocking `SDL_Delay` calls for respawn and level completion became timers in the states
-- fonts are cached per size instead of being opened and closed every frame
-- global mutable state (map arrays, counters, textures, renderer) is gone; data is owned by
-  `World`, `EditorModel` and `SdlRenderer`
-- two sprites were WebP files named `.png`; they carry the correct extension now
-- user interface texts are in English
-- the physics (speeds, gravity, collision order) is intentionally unchanged, including the
-  0 / 0.5 velocity oscillation of a player standing on the ground
+- a missing level file raises `LevelLoadError`, which is shown on the level select screen
+  instead of terminating the program
+- the respawn pause and the congratulation screen are timers inside the states, so the main
+  loop never blocks
+- fonts are opened once and cached per size by `SdlRenderer`
+- there is no global mutable state; data is owned by `World`, `EditorModel` and `SdlRenderer`
+- physics runs with a fixed step per frame; a player standing on the ground alternates between
+  a vertical velocity of 0 and 0.5, which the tests take into account
 
 ## Verification and its limits
 

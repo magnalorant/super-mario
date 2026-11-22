@@ -2,9 +2,8 @@
 
 [![CI](https://github.com/magnalorant/super-mario/actions/workflows/ci.yml/badge.svg)](https://github.com/magnalorant/super-mario/actions/workflows/ci.yml)
 
-A side-scrolling platformer with a built-in level editor. The project started as a single
-1270-line C file; this repository is a complete rewrite in modern C++17 with a testable core,
-a thin SDL2 frontend, a CMake build, automated tests and continuous integration.
+A side-scrolling platformer with a built-in level editor, written in modern C++17 with a
+testable core, a thin SDL2 frontend, a CMake build, automated tests and continuous integration.
 
 ![Gameplay](docs/images/gameplay.png)
 
@@ -156,5 +155,4 @@ docs/                  design notes and Doxygen setup
 
 ## Credits
 
-The font is DejaVu Sans (Bitstream Vera / DejaVu license). Sprites and level files are carried
-over from the original C version of the project.
+The font is DejaVu Sans (Bitstream Vera / DejaVu license).

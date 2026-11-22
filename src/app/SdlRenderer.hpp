@@ -19,7 +19,7 @@ namespace mario::app {
  * @brief Adapter from the core Renderer interface to SDL_Renderer, SDL_image and SDL_ttf.
  *
  * Sprites are loaded once at construction. Fonts are opened lazily and cached per point size,
- * whereas the C version opened and closed font files on every frame.
+ * so no font file is opened during a frame.
  */
 class SdlRenderer final : public Renderer {
 public:
