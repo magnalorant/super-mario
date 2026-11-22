@@ -5,6 +5,7 @@ target_sources(mario_core
     PRIVATE
         core/Entities.cpp
         core/EntityFactory.cpp
+        core/EventDispatcher.cpp
         core/LevelLoader.cpp
         core/Platform.cpp
         core/TileMap.cpp
