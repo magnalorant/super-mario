@@ -22,18 +22,18 @@ struct Color {
 
 /// @brief Colors used by the user interface.
 namespace palette {
-inline constexpr Color kWhite{255, 255, 255, 255};       ///< Regular text.
-inline constexpr Color kGold{255, 220, 40, 255};         ///< Highlighted menu entries.
-inline constexpr Color kYellow{255, 255, 0, 255};        ///< Flag and editor highlights.
-inline constexpr Color kRed{220, 50, 50, 255};           ///< Game over title and errors.
-inline constexpr Color kShadow{40, 40, 40, 255};         ///< Default text shadow.
-inline constexpr Color kDeepShadow{30, 30, 30, 255};     ///< Game over text shadow.
-inline constexpr Color kBlueShadow{30, 30, 70, 255};     ///< Level select text shadow.
-inline constexpr Color kSky{107, 140, 255, 255};         ///< Game background.
+inline constexpr Color kWhite{255, 255, 255, 255};          ///< Regular text.
+inline constexpr Color kGold{255, 220, 40, 255};            ///< Highlighted menu entries.
+inline constexpr Color kYellow{255, 255, 0, 255};           ///< Flag and editor highlights.
+inline constexpr Color kRed{220, 50, 50, 255};              ///< Game over title and errors.
+inline constexpr Color kShadow{40, 40, 40, 255};            ///< Default text shadow.
+inline constexpr Color kDeepShadow{30, 30, 30, 255};        ///< Game over text shadow.
+inline constexpr Color kBlueShadow{30, 30, 70, 255};        ///< Level select text shadow.
+inline constexpr Color kSky{107, 140, 255, 255};            ///< Game background.
 inline constexpr Color kEditorBackground{30, 30, 30, 255};  ///< Editor background.
-inline constexpr Color kEditorEmpty{80, 80, 80, 255};    ///< Empty editor cell.
-inline constexpr Color kEditorGrid{120, 120, 120, 255};  ///< Editor grid lines.
-inline constexpr Color kFlagPole{180, 180, 180, 255};    ///< Goal flag pole.
+inline constexpr Color kEditorEmpty{80, 80, 80, 255};       ///< Empty editor cell.
+inline constexpr Color kEditorGrid{120, 120, 120, 255};     ///< Editor grid lines.
+inline constexpr Color kFlagPole{180, 180, 180, 255};       ///< Goal flag pole.
 }  // namespace palette
 
 /// @brief Images the renderer knows how to draw.

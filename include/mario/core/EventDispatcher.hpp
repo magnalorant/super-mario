@@ -33,7 +33,7 @@ enum class GameEventType {
  */
 struct GameEvent {
     GameEventType type{GameEventType::CoinCollected};  ///< What happened.
-    int value{0};  ///< Event specific payload, see GameEventType.
+    int value{0};                                      ///< Event specific payload, see GameEventType.
 };
 
 /**

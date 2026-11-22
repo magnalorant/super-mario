@@ -51,8 +51,8 @@ struct KeyPressed {
 
 /// @brief A mouse button went down.
 struct MousePressed {
-    int x{0};                              ///< Window x coordinate.
-    int y{0};                              ///< Window y coordinate.
+    int x{0};                               ///< Window x coordinate.
+    int y{0};                               ///< Window y coordinate.
     MouseButton button{MouseButton::Left};  ///< The button.
 };
 

@@ -66,14 +66,14 @@ public:
  * @brief A platform the player can ride.
  */
 struct Platform {
-    int x{0};                        ///< Current left edge.
-    int y{0};                        ///< Current top edge.
-    int w{config::kTileSize};        ///< Width in pixels.
-    int h{config::kTileSize};        ///< Height in pixels.
-    int direction{1};                ///< +1 or -1 along the motion axis.
-    int range{config::kPlatformRange};  ///< Travel distance in pixels.
-    int startX{0};                   ///< Anchor x coordinate.
-    int startY{0};                   ///< Anchor y coordinate.
+    int x{0};                                      ///< Current left edge.
+    int y{0};                                      ///< Current top edge.
+    int w{config::kTileSize};                      ///< Width in pixels.
+    int h{config::kTileSize};                      ///< Height in pixels.
+    int direction{1};                              ///< +1 or -1 along the motion axis.
+    int range{config::kPlatformRange};             ///< Travel distance in pixels.
+    int startX{0};                                 ///< Anchor x coordinate.
+    int startY{0};                                 ///< Anchor y coordinate.
     std::shared_ptr<const PlatformMotion> motion;  ///< Movement strategy, shared between platforms.
 
     /// @return Collision rectangle in world coordinates.

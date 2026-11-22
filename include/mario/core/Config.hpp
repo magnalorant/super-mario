@@ -18,16 +18,16 @@ inline constexpr int kMaxPowerups = 32;   ///< Upper bound of power-ups spawned 
 inline constexpr int kMaxFireballs = 20;  ///< Number of fireballs that can be in flight at once.
 inline constexpr int kMaxPlatforms = 16;  ///< Upper bound of moving platforms spawned from one level file.
 
-inline constexpr int kPlayerSpeed = 5;              ///< Horizontal player speed in pixels per frame.
-inline constexpr int kEnemySpeed = 2;               ///< Horizontal enemy speed in pixels per frame.
-inline constexpr int kPlatformSpeed = 2;            ///< Moving platform speed in pixels per frame.
+inline constexpr int kPlayerSpeed = 5;                ///< Horizontal player speed in pixels per frame.
+inline constexpr int kEnemySpeed = 2;                 ///< Horizontal enemy speed in pixels per frame.
+inline constexpr int kPlatformSpeed = 2;              ///< Moving platform speed in pixels per frame.
 inline constexpr int kPlatformRange = kTileSize * 6;  ///< Travel distance of a moving platform in pixels.
-inline constexpr int kFireballSpeed = 8;            ///< Fireball speed in pixels per frame.
-inline constexpr int kFireballSize = 12;            ///< Fireball edge length in pixels.
+inline constexpr int kFireballSpeed = 8;              ///< Fireball speed in pixels per frame.
+inline constexpr int kFireballSize = 12;              ///< Fireball edge length in pixels.
 
-inline constexpr float kGravity = 0.5F;        ///< Downward acceleration in pixels per frame squared.
-inline constexpr float kJumpStrength = -12.0F;  ///< Initial vertical velocity of a jump.
-inline constexpr float kStompBounceDivisor = 1.5F;  ///< Jump strength divisor applied after stomping an enemy.
+inline constexpr float kGravity = 0.5F;             ///< Downward acceleration in pixels per frame squared.
+inline constexpr float kJumpStrength = -12.0F;      ///< Initial vertical velocity of a jump.
+inline constexpr float kStompBounceDivisor = 1.5F;  ///< Bounce after a stomp is jump / divisor.
 
 inline constexpr int kPlayerInitialX = 100;           ///< Spawn x coordinate of the player.
 inline constexpr int kPlayerInitialYOffsetTiles = 3;  ///< Spawn height measured in tiles from the bottom.
@@ -41,11 +41,11 @@ inline constexpr int kLevelCompleteDelayMs = 2500;  ///< Duration of the level c
 inline constexpr int kRespawnDelayMs = 500;         ///< Freeze time after losing a life.
 inline constexpr int kFrameDelayMs = 16;            ///< Target frame time of the main loop.
 
-inline constexpr int kPoleHeightTiles = 4;      ///< Height of the goal flag pole in tiles.
+inline constexpr int kPoleHeightTiles = 4;     ///< Height of the goal flag pole in tiles.
 inline constexpr int kEditorCameraSpeed = 20;  ///< Editor camera scroll step in pixels.
 
-inline constexpr int kWorldPixelWidth = kMapWidth * kTileSize;    ///< Level width in pixels.
-inline constexpr int kWorldPixelHeight = kMapHeight * kTileSize;  ///< Level height in pixels.
-inline constexpr int kRenderOffsetY = kWindowHeight - kWorldPixelHeight;  ///< Vertical offset of the level on screen.
+inline constexpr int kWorldPixelWidth = kMapWidth * kTileSize;            ///< Level width in pixels.
+inline constexpr int kWorldPixelHeight = kMapHeight * kTileSize;          ///< Level height in pixels.
+inline constexpr int kRenderOffsetY = kWindowHeight - kWorldPixelHeight;  ///< Screen y of row 0.
 
 }  // namespace mario::config

@@ -30,8 +30,8 @@ protected:
     }
 
     [[nodiscard]] int count(GameEventType type) const {
-        return static_cast<int>(
-            std::count_if(received.begin(), received.end(), [type](const GameEvent& e) { return e.type == type; }));
+        return static_cast<int>(std::count_if(received.begin(), received.end(),
+                                              [type](const GameEvent& e) { return e.type == type; }));
     }
 
     EventDispatcher events;

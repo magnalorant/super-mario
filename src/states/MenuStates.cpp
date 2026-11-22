@@ -52,8 +52,8 @@ void MenuState::render(const Game& /*game*/, Renderer& renderer) const {
     constexpr int spacing = 60;
     for (std::size_t i = 0; i < kOptions.size(); ++i) {
         const Color color = i == selected_ ? palette::kGold : palette::kWhite;
-        renderer.drawTextCentered(kOptions[i], firstY + static_cast<int>(i) * spacing, color, palette::kShadow, 38,
-                                  3);
+        renderer.drawTextCentered(kOptions[i], firstY + static_cast<int>(i) * spacing, color,
+                                  palette::kShadow, 38, 3);
     }
 }
 
@@ -86,7 +86,8 @@ void LevelSelectState::render(const Game& game, Renderer& renderer) const {
     for (std::size_t i = 0; i < levels.size(); ++i) {
         const bool active = i == selected_;
         const std::string label = (active ? "> " : "  ") + levels[i].name;
-        renderer.drawTextCentered(label, y, active ? palette::kGold : palette::kWhite, palette::kBlueShadow, 32, 2);
+        renderer.drawTextCentered(label, y, active ? palette::kGold : palette::kWhite, palette::kBlueShadow,
+                                  32, 2);
         y += 47;
     }
 
