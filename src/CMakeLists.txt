@@ -13,6 +13,10 @@ target_sources(mario_core
         core/TileMap.cpp
         core/World.cpp
         core/WorldView.cpp
+        states/EditorState.cpp
+        states/Game.cpp
+        states/MenuStates.cpp
+        states/PlayStates.cpp
 )
 
 target_include_directories(mario_core

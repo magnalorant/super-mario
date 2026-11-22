@@ -33,6 +33,7 @@ mario_add_test_suite(mario_unit_tests unit
     unit/CameraTest.cpp
     unit/EditorModelTest.cpp
     unit/EventDispatcherTest.cpp
+    unit/GameStateTest.cpp
     unit/GeometryTest.cpp
     unit/LevelLoaderTest.cpp
     unit/PlatformTest.cpp
