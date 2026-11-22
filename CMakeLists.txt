@@ -27,3 +27,8 @@ include(ProjectWarnings)
 include(Sanitizers)
 
 add_subdirectory(src)
+
+if(MARIO_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
