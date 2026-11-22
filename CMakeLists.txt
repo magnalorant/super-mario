@@ -26,9 +26,12 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 include(ProjectWarnings)
 include(Sanitizers)
 
+if(MARIO_BUILD_TESTS)
+    enable_testing()
+endif()
+
 add_subdirectory(src)
 
 if(MARIO_BUILD_TESTS)
-    enable_testing()
     add_subdirectory(tests)
 endif()
