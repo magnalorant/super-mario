@@ -1,0 +1,107 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "MARIO_BUILD_TESTS": "ON"
+            }
+        },
+        {
+            "name": "dev",
+            "displayName": "Debug build with game, tests and warnings as errors",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "MARIO_WARNINGS_AS_ERRORS": "ON"
+            }
+        },
+        {
+            "name": "release",
+            "displayName": "Optimised build for playing",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "core-only",
+            "displayName": "Core library and tests only, no SDL2 required",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "MARIO_BUILD_GAME": "OFF",
+                "MARIO_WARNINGS_AS_ERRORS": "ON"
+            }
+        },
+        {
+            "name": "sanitize",
+            "displayName": "Core tests under AddressSanitizer and UndefinedBehaviorSanitizer",
+            "inherits": "core-only",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "MARIO_ENABLE_SANITIZERS": "ON"
+            }
+        },
+        {
+            "name": "coverage",
+            "displayName": "Core tests instrumented for gcov/gcovr",
+            "inherits": "core-only",
+            "cacheVariables": {
+                "MARIO_ENABLE_COVERAGE": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        { "name": "dev", "configurePreset": "dev" },
+        { "name": "release", "configurePreset": "release" },
+        { "name": "core-only", "configurePreset": "core-only" },
+        { "name": "sanitize", "configurePreset": "sanitize" },
+        { "name": "coverage", "configurePreset": "coverage" }
+    ],
+    "testPresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "output": { "outputOnFailure": true },
+            "execution": { "noTestsAction": "error" }
+        },
+        { "name": "dev", "inherits": "base", "configurePreset": "dev" },
+        { "name": "release", "inherits": "base", "configurePreset": "release" },
+        { "name": "core-only", "inherits": "base", "configurePreset": "core-only" },
+        { "name": "sanitize", "inherits": "base", "configurePreset": "sanitize" },
+        { "name": "coverage", "inherits": "base", "configurePreset": "coverage" },
+        {
+            "name": "unit",
+            "inherits": "base",
+            "configurePreset": "core-only",
+            "filter": { "include": { "label": "unit" } }
+        }
+    ],
+    "workflowPresets": [
+        {
+            "name": "dev",
+            "steps": [
+                { "type": "configure", "name": "dev" },
+                { "type": "build", "name": "dev" },
+                { "type": "test", "name": "dev" }
+            ]
+        },
+        {
+            "name": "core-only",
+            "steps": [
+                { "type": "configure", "name": "core-only" },
+                { "type": "build", "name": "core-only" },
+                { "type": "test", "name": "core-only" }
+            ]
+        }
+    ]
+}
