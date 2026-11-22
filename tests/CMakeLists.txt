@@ -20,6 +20,7 @@ add_executable(mario_tests)
 target_sources(mario_tests
     PRIVATE
         unit/CameraTest.cpp
+        unit/EditorModelTest.cpp
         unit/EventDispatcherTest.cpp
         unit/GeometryTest.cpp
         unit/LevelLoaderTest.cpp
