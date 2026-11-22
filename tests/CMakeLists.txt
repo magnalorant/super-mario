@@ -20,6 +20,8 @@ add_executable(mario_tests)
 target_sources(mario_tests
     PRIVATE
         unit/GeometryTest.cpp
+        unit/PlatformTest.cpp
+        unit/PlayerTest.cpp
         unit/TileMapTest.cpp
 )
 
