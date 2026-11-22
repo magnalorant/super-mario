@@ -1,0 +1,119 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CMAKE_GENERATOR: Ninja
+  APT_PACKAGES: cmake ninja-build pkg-config libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libgtest-dev
+
+jobs:
+  build-and-test:
+    name: Build and test (${{ matrix.compiler }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - compiler: gcc
+            cxx: g++
+          - compiler: clang
+            cxx: clang++
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends $APT_PACKAGES
+      - name: Configure
+        run: cmake --preset dev -DCMAKE_CXX_COMPILER=${{ matrix.cxx }}
+      - name: Build
+        run: cmake --build --preset dev
+      - name: Test
+        run: ctest --preset dev
+
+  sanitizers:
+    name: AddressSanitizer + UBSan
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends $APT_PACKAGES
+      - name: Configure
+        run: cmake --preset sanitize
+      - name: Build
+        run: cmake --build --preset sanitize
+      - name: Test
+        env:
+          ASAN_OPTIONS: detect_leaks=1:strict_string_checks=1
+          UBSAN_OPTIONS: print_stacktrace=1
+        run: ctest --preset sanitize
+
+  coverage:
+    name: Code coverage
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends $APT_PACKAGES
+          pipx install gcovr==8.8
+      - name: Build and test
+        run: |
+          cmake --preset coverage
+          cmake --build --preset coverage
+          ctest --preset coverage
+      - name: Report
+        run: |
+          mkdir -p coverage
+          gcovr --root . --filter src/ --filter include/ build/coverage --txt-summary --html-details coverage/index.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+
+  static-analysis:
+    name: clang-format and clang-tidy
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends $APT_PACKAGES
+          pipx install clang-format==23.1.5
+          pipx install clang-tidy==23.1.4
+      - name: Check formatting
+        run: clang-format --dry-run --Werror $(git ls-files '*.cpp' '*.hpp')
+      - name: Configure
+        run: cmake --preset dev
+      - name: clang-tidy
+        run: clang-tidy -p build/dev --quiet src/core/*.cpp src/states/*.cpp src/app/*.cpp
+
+  docs:
+    name: Doxygen documentation
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends cmake ninja-build doxygen graphviz
+      - name: Generate
+        run: |
+          cmake --preset core-only -DMARIO_BUILD_TESTS=OFF -DMARIO_BUILD_DOCS=ON -DMARIO_DOCS_WARN_AS_ERROR=ON
+          cmake --build --preset core-only --target docs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: api-documentation
+          path: build/core-only/docs/html/
