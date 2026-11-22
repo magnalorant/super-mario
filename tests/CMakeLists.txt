@@ -19,13 +19,18 @@ add_executable(mario_tests)
 
 target_sources(mario_tests
     PRIVATE
+        unit/CameraTest.cpp
         unit/EventDispatcherTest.cpp
         unit/GeometryTest.cpp
         unit/LevelLoaderTest.cpp
         unit/PlatformTest.cpp
         unit/PlayerTest.cpp
         unit/TileMapTest.cpp
+        unit/WorldInteractionTest.cpp
+        unit/WorldPhysicsTest.cpp
 )
+
+target_include_directories(mario_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(mario_tests
     PRIVATE
