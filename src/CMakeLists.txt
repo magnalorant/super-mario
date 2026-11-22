@@ -12,6 +12,7 @@ target_sources(mario_core
         core/Platform.cpp
         core/TileMap.cpp
         core/World.cpp
+        core/WorldView.cpp
 )
 
 target_include_directories(mario_core
