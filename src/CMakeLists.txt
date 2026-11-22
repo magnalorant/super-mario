@@ -4,6 +4,7 @@ add_library(mario::core ALIAS mario_core)
 target_sources(mario_core
     PRIVATE
         core/Camera.cpp
+        core/EditorModel.cpp
         core/Entities.cpp
         core/EntityFactory.cpp
         core/EventDispatcher.cpp
