@@ -28,3 +28,7 @@ target_include_directories(mario_core
 target_compile_features(mario_core PUBLIC cxx_std_17)
 mario_set_project_warnings(mario_core)
 mario_enable_instrumentation(mario_core)
+
+if(MARIO_BUILD_GAME)
+    add_subdirectory(app)
+endif()
