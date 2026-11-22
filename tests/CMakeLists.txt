@@ -44,3 +44,6 @@ mario_add_test_suite(mario_unit_tests unit
     unit/WorldViewTest.cpp
 )
 
+mario_add_test_suite(mario_integration_tests integration
+    integration/ShippedLevelsTest.cpp
+)
