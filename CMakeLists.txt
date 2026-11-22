@@ -21,6 +21,8 @@ option(MARIO_BUILD_TESTS "Build the automated test suite" ON)
 option(MARIO_WARNINGS_AS_ERRORS "Treat compiler warnings as errors" OFF)
 option(MARIO_ENABLE_SANITIZERS "Instrument with AddressSanitizer and UndefinedBehaviorSanitizer" OFF)
 option(MARIO_ENABLE_COVERAGE "Instrument for gcov/lcov code coverage" OFF)
+option(MARIO_BUILD_DOCS "Add the 'docs' target that runs Doxygen" OFF)
+option(MARIO_DOCS_WARN_AS_ERROR "Fail the docs target on Doxygen warnings" OFF)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 include(ProjectWarnings)
@@ -34,4 +36,8 @@ add_subdirectory(src)
 
 if(MARIO_BUILD_TESTS)
     add_subdirectory(tests)
+endif()
+
+if(MARIO_BUILD_DOCS)
+    add_subdirectory(docs)
 endif()
