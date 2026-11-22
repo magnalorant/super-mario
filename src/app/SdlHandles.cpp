@@ -10,8 +10,10 @@ SdlSystem::SdlSystem() {
         SDL_Quit();
         throw SdlError("TTF_Init failed");
     }
-    constexpr int imageFormats = IMG_INIT_PNG | IMG_INIT_WEBP;
-    if ((IMG_Init(imageFormats) & IMG_INIT_PNG) == 0) {
+    constexpr auto png = static_cast<unsigned>(IMG_INIT_PNG);
+    constexpr auto webp = static_cast<unsigned>(IMG_INIT_WEBP);
+    const auto loaded = static_cast<unsigned>(IMG_Init(static_cast<int>(png | webp)));
+    if ((loaded & png) == 0U) {
         TTF_Quit();
         SDL_Quit();
         throw SdlError("IMG_Init failed");

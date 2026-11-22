@@ -44,7 +44,7 @@ public:
      * @brief Creates a game that reads levels from assetDir/levels.
      * @param assetDir Directory containing the levels folder.
      */
-    explicit Game(std::filesystem::path assetDir);
+    explicit Game(const std::filesystem::path& assetDir);
 
     ~Game();
     Game(const Game&) = delete;

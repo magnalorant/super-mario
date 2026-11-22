@@ -9,8 +9,8 @@ namespace mario {
 
 void GameState::update(Game& /*game*/, const InputState& /*held*/, int /*elapsedMs*/) {}
 
-Game::Game(std::filesystem::path assetDir)
-    : levelDir_(std::move(assetDir) / "levels"), world_(events_), state_(std::make_unique<MenuState>()) {
+Game::Game(const std::filesystem::path& assetDir)
+    : levelDir_(assetDir / "levels"), world_(events_), state_(std::make_unique<MenuState>()) {
     for (const char* file : {"map1.txt", "map2.txt", "map3.txt", kCustomLevelName}) {
         levels_.push_back(LevelEntry{file, levelDir_ / file});
     }

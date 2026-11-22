@@ -208,10 +208,11 @@ void World::movePlatforms() {
 }
 
 void World::rideSupportingPlatform(const PlayerInput& input) {
-    if (!player_.onPlatform()) {
+    const std::optional<std::size_t> index = player_.supportingPlatform;
+    if (!index) {
         return;
     }
-    const Platform& platform = platforms_[*player_.supportingPlatform];
+    const Platform& platform = platforms_[*index];
     const int feet = player_.y + player_.h;
     const bool overlapsX = player_.x + player_.w > platform.x && player_.x < platform.x + platform.w;
     const bool onTop = feet >= platform.y && feet < platform.y + kTile / 2;

@@ -80,7 +80,7 @@ void drawHelp(const EditorModel& editor, const std::string& status, Renderer& re
     renderer.drawText("Palette:", paletteX, y, palette::kYellow, kTextSize);
     for (char c = '0'; c <= '8'; ++c) {
         y += 25;
-        const std::string entry = std::string(1, c) + ": " + std::string(tileName(*tileCodeFromChar(c)));
+        const std::string entry = std::string(1, c) + ": " + std::string(tileName(static_cast<TileCode>(c)));
         renderer.drawText(entry, paletteX, y, palette::kWhite, kTextSize);
     }
 }
